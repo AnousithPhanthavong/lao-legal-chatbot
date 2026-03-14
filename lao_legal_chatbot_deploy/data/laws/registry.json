@@ -1,0 +1,81 @@
+{
+  "version": "1.0",
+  "project": "Lao Legal RAG ChatBot",
+  "description": "Master index of all Lao legal documents",
+  "total_laws": 4,
+  "total_chunks": 535,
+  "last_updated": "2026-03-12",
+  "schema_version": "1.0",
+  "required_metadata_fields": [
+    "law_name_lao",
+    "law_name_en",
+    "year",
+    "article",
+    "article_title",
+    "law_type",
+    "status",
+    "category"
+  ],
+  "laws": [
+    {
+      "filename": "insurance_law_2020.json",
+      "law_name_en": "Insurance Law",
+      "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປະກັນໄພ",
+      "year": 2020,
+      "document_number": "303/ປປທ",
+      "law_type": "ກົດໝາຍ",
+      "law_type_en": "Law",
+      "status": "active",
+      "category": "finance",
+      "total_articles_original": 101,
+      "total_chunks": 104,
+      "file_size_kb": 343.0,
+      "last_updated": "2026-03-12"
+    },
+    {
+      "filename": "accounting_law_2023.json",
+      "law_name_en": "Accounting Law",
+      "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການບັນຊີ",
+      "year": 2023,
+      "document_number": "46 /ສພຊ",
+      "law_type": "ກົດໝາຍ",
+      "law_type_en": "Law",
+      "status": "active",
+      "category": "finance",
+      "total_articles_original": 89,
+      "total_chunks": 94,
+      "file_size_kb": 390.2,
+      "last_updated": "2026-03-12"
+    },
+    {
+      "filename": "enterprise_law_2023.json",
+      "law_name_en": "Law on Enterprises",
+      "law_name_lao": "ກົດໝາຍວ່າດ້ວຍວິສາຫະກິດ",
+      "year": 2023,
+      "document_number": "029 /ປປທ",
+      "law_type": "ກົດໝາຍ",
+      "law_type_en": "Law",
+      "status": "active",
+      "category": "business",
+      "total_articles_original": 221,
+      "total_chunks": 225,
+      "file_size_kb": 724.0,
+      "last_updated": "2026-03-12"
+    },
+    {
+      "filename": "investment_promotion_law_2024.json",
+      "law_name_en": "Law on Investment Promotion",
+      "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການສົ່ງເສີມການລົງທຶນ",
+      "year": 2024,
+      "document_number": "124 /ປປທ",
+      "law_type": "ກົດໝາຍ",
+      "law_type_en": "Law",
+      "status": "active",
+      "category": "investment",
+      "total_articles_original": 101,
+      "total_chunks": 112,
+      "file_size_kb": 502.6,
+      "last_updated": "2026-03-12"
+    }
+  ]
+}
