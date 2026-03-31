@@ -1,8 +1,8 @@
 {
-  "version": "4.1",
+  "version": "5.0",
   "total_laws": 75,
   "total_chunks": 6758,
-  "last_updated": "2026-03-30",
+  "last_updated": "2026-03-31",
   "laws": [
     {
       "filename": "accounting_law_2023.json",
@@ -10,11 +10,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການບັນຊີ",
       "year": 2023,
       "document_number": "46/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 97,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "aml_ctf_law_2024.json",
@@ -22,11 +19,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຕ້ານການຟອກເງິນ ແລະ ການສະໜອງທຶນໃຫ້ແກ່ການກໍ່ການຮ້າຍ",
       "year": 2024,
       "document_number": "64/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "criminal",
       "total_chunks": 69,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "anti_cybercrime_law_2015.json",
@@ -34,11 +28,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຕ້ານ ແລະ ສະກັດກັ້ນອາຊະຍາກຳທາງລະບົບຄອມພິວເຕີ",
       "year": 2015,
       "document_number": "135/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "criminal",
       "total_chunks": 78,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "anti_dumping_law_2019.json",
@@ -46,11 +37,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຕອບໂຕ້ການທຸ່ມຕະຫຼາດ ແລະ ການຊ່ວຍໜູນຂອງປະເທດຜູ້ສົ່ງອອກ",
       "year": 2019,
       "document_number": "256/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "trade",
       "total_chunks": 74,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "bank_of_lao_law_2024.json",
@@ -58,11 +46,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍທະນາຄານແຫ່ງ ສປປ ລາວ",
       "year": 2024,
       "document_number": "125/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 104,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "bankruptcy_law_2019.json",
@@ -70,11 +55,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຟື້ນຟູ ແລະ ການລົ້ມລະລາຍຂອງວິສາຫະກິດ",
       "year": 2019,
       "document_number": "027/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 93,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "biosafety_law_2013.json",
@@ -82,11 +64,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຄວາມປອດໄພດ້ານເຕັກໂນໂລຊີຊີວະພາບ",
       "year": 2013,
       "document_number": "036/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 91,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "business_competition_law_2015.json",
@@ -94,11 +73,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການແຂ່ງຂັນທາງທຸລະກິດ",
       "year": 2015,
       "document_number": "134/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 108,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "chemical_management_law_2016.json",
@@ -106,11 +82,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຄຸ້ມຄອງເຄມີ",
       "year": 2016,
       "document_number": "202/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 90,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "civil_aviation_law_2018.json",
@@ -118,11 +91,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການບິນພົນລະເຮືອນ",
       "year": 2018,
       "document_number": "210/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "transport",
       "total_chunks": 68,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "civil_procedure_law_2024.json",
@@ -130,11 +100,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການດຳເນີນຄະດີແພ່ງ",
       "year": 2024,
       "document_number": "67/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 302,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "commercial_banking_law_2023.json",
@@ -142,11 +109,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍທະນາຄານທຸລະກິດ",
       "year": 2023,
       "document_number": "092/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 129,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "construction_law_2009.json",
@@ -154,11 +118,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການກໍ່ສ້າງ",
       "year": 2009,
       "document_number": "05/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "property",
       "total_chunks": 61,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "consumer_protection_law_2010.json",
@@ -166,11 +127,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປົກປ້ອງຜູ້ຊົມໃຊ້",
       "year": 2010,
       "document_number": "160/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 77,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "contract_security_law_2005.json",
@@ -178,11 +136,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຄ້ຳປະກັນການປະຕິບັດສັນຍາ",
       "year": 2005,
       "document_number": "48/ສປປ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 44,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "cooperative_law_2024.json",
@@ -190,11 +145,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍສະຫະກອນ",
       "year": 2024,
       "document_number": "116/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 80,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "court_fees_law_2019.json",
@@ -202,11 +154,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຄ່າທຳນຽມສານ",
       "year": 2019,
       "document_number": "260/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 79,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "court_registry_law_2022.json",
@@ -214,11 +163,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍທະບຽນສານ",
       "year": 2022,
       "document_number": "108/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 65,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "cultivation_law_2025.json",
@@ -226,11 +172,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປູກຝັງ",
       "year": 2025,
       "document_number": "141/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "agriculture",
       "total_chunks": 107,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "customs_law_2020.json",
@@ -238,11 +181,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍພາສີ",
       "year": 2020,
       "document_number": "138/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "tax",
       "total_chunks": 183,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "dam_safety_law_2022.json",
@@ -250,11 +190,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຄວາມປອດໄພຂອງເຂື່ອນ",
       "year": 2022,
       "document_number": "109/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 86,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "economic_dispute_resolution_law_2018.json",
@@ -262,11 +199,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການແກ້ໄຂຂໍ້ຂັດແຍ່ງທາງດ້ານເສດຖະກິດ",
       "year": 2018,
       "document_number": "210/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 101,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "electronic_data_protection_law_2017.json",
@@ -274,11 +208,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປົກປ້ອງຂໍ້ມູນເອເລັກໂຕຣນິກ",
       "year": 2017,
       "document_number": "117/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 64,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "electronic_signature_law_2018.json",
@@ -286,11 +217,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍລາຍເຊັນເອເລັກໂຕຣນິກ",
       "year": 2018,
       "document_number": "148/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 88,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "electronic_transactions_law_2022.json",
@@ -298,11 +226,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍທຸລະກຳທາງເອເລັກໂຕຣນິກ",
       "year": 2022,
       "document_number": "031/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 88,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "enterprise_law_2023.json",
@@ -310,11 +235,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍວິສາຫະກິດ",
       "year": 2023,
       "document_number": "029/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 149,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "excise_tax_law_2019.json",
@@ -322,11 +244,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍອາກອນຊົມໃຊ້",
       "year": 2019,
       "document_number": "258/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "tax",
       "total_chunks": 55,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "family_registration_law_2018.json",
@@ -334,11 +253,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍທະບຽນຄອບຄົວ",
       "year": 2018,
       "document_number": "203/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "social",
       "total_chunks": 74,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "fisheries_law_2023.json",
@@ -346,11 +262,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍສັດນ້ຳ ແລະ ການປະມົງ",
       "year": 2023,
       "document_number": "097/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "agriculture",
       "total_chunks": 104,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "foreign_currency_law_2022.json",
@@ -358,11 +271,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຄຸ້ມຄອງເງິນຕາຕ່າງປະເທດ",
       "year": 2022,
       "document_number": "104/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 73,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "forestry_law_2019.json",
@@ -370,11 +280,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍປ່າໄມ້",
       "year": 2019,
       "document_number": "255/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 161,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "handicraft_law_2008.json",
@@ -382,11 +289,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຫັດຖະກຳ",
       "year": 2008,
       "document_number": "109/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 70,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "high_technology_law_2019.json",
@@ -394,11 +298,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍເຕັກໂນໂລຊີລະດັບສູງ",
       "year": 2019,
       "document_number": "238/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 63,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "housing_law_2024.json",
@@ -406,11 +307,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍທີ່ຢູ່ອາໄສ",
       "year": 2024,
       "document_number": "012/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "property",
       "total_chunks": 66,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "ict_law_2016.json",
@@ -418,11 +316,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍເຕັກໂນໂລຊີການສື່ສານຂໍ້ມູນຂ່າວສານ",
       "year": 2016,
       "document_number": "199/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 79,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "income_tax_law_2019.json",
@@ -430,11 +325,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍອາກອນລາຍໄດ້",
       "year": 2019,
       "document_number": "259/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "tax",
       "total_chunks": 103,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "independent_audit_law_2024.json",
@@ -442,11 +334,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການກວດສອບອິດສະລະ",
       "year": 2024,
       "document_number": "063/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 99,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "insurance_law_2020.json",
@@ -454,11 +343,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປະກັນໄພ",
       "year": 2020,
       "document_number": "303/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 112,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "intellectual_property_law_2023.json",
@@ -466,11 +352,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຊັບສິນທາງປັນຍາ",
       "year": 2023,
       "document_number": "008/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 194,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "investment_promotion_law_2024.json",
@@ -478,11 +361,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການສົ່ງເສີມການລົງທຶນ",
       "year": 2024,
       "document_number": "124/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "investment",
       "total_chunks": 83,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "judgment_enforcement_law_2024.json",
@@ -490,11 +370,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປະຕິບັດຄຳຕັດສິນຂອງສານ",
       "year": 2024,
       "document_number": "128/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 104,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "land_tax_law_2023.json",
@@ -502,11 +379,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍອາກອນທີ່ດິນ",
       "year": 2023,
       "document_number": "091/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "tax",
       "total_chunks": 52,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "land_traffic_law_2012.json",
@@ -514,11 +388,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຈະລາຈອນທາງບົກ",
       "year": 2012,
       "document_number": "023/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "transport",
       "total_chunks": 99,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "land_vehicle_law_2019.json",
@@ -526,11 +397,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຍານພາຫະນະທາງບົກ",
       "year": 2019,
       "document_number": "235/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "transport",
       "total_chunks": 98,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "meteorology_hydrology_law_2017.json",
@@ -538,11 +406,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍອຸຕຸນິຍົມ ແລະ ອຸທົກກະສາດ",
       "year": 2017,
       "document_number": "317/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 77,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "metrology_law_2014.json",
@@ -550,11 +415,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການວັດແທກ",
       "year": 2014,
       "document_number": "182/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 77,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "multimodal_transport_law_2013.json",
@@ -562,11 +424,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຂົນສົ່ງຫຼາຍຮູບແບບ",
       "year": 2013,
       "document_number": "031/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "transport",
       "total_chunks": 72,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "payment_system_law_2023.json",
@@ -574,11 +433,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍລະບົບການຊຳລະ",
       "year": 2023,
       "document_number": "003/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 68,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "peoples_court_amendment1_2020.json",
@@ -586,11 +442,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປັບປຸງບາງມາດຕາຂອງກົດໝາຍວ່າດ້ວຍສານປະຊາຊົນ",
       "year": 2020,
       "document_number": "111/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 12,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "peoples_court_amendment2_2023.json",
@@ -598,11 +451,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປັບປຸງບາງມາດຕາຂອງກົດໝາຍວ່າດ້ວຍສານປະຊາຊົນ",
       "year": 2023,
       "document_number": "062/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 13,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "peoples_court_law_2017.json",
@@ -610,11 +460,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍສານປະຊາຊົນ",
       "year": 2017,
       "document_number": "114/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 79,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "postal_service_law_2014.json",
@@ -622,11 +469,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການໄປສະນີ",
       "year": 2014,
       "document_number": "051/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 70,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "public_debt_management_law_2018.json",
@@ -634,11 +478,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຄຸ້ມຄອງໜີ້ສິນສາທາລະນະ",
       "year": 2018,
       "document_number": "205/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 91,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "public_investment_law_2016.json",
@@ -646,11 +487,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການລົງທຶນຂອງລັດ",
       "year": 2016,
       "document_number": "072/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "government",
       "total_chunks": 106,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "public_procurement_law_2017.json",
@@ -658,11 +496,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຈັດຊື້-ຈັດຈ້າງດ້ວຍທຶນຂອງລັດ",
       "year": 2017,
       "document_number": "290/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "government",
       "total_chunks": 70,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "public_prosecution_law_2024.json",
@@ -670,11 +505,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍອົງການໄອຍະການປະຊາຊົນ",
       "year": 2024,
       "document_number": "127/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "judicial",
       "total_chunks": 84,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "radiation_safety_law_2018.json",
@@ -682,11 +514,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຄວາມປອດໄພຈາກລັງສີ",
       "year": 2018,
       "document_number": "150/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 82,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "radio_frequency_law_2017.json",
@@ -694,11 +523,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຄື້ນຄວາມຖີ່ວິທະຍຸສື່ສານ",
       "year": 2017,
       "document_number": "109/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 72,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "railway_law_2018.json",
@@ -706,11 +532,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການລົດໄຟ",
       "year": 2018,
       "document_number": "151/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "transport",
       "total_chunks": 86,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "resettlement_occupation_law_2018.json",
@@ -718,11 +541,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຈັດສັນພູມລຳເນົາ ແລະ ອາຊີບ",
       "year": 2018,
       "document_number": "204/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "social",
       "total_chunks": 92,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "science_technology_law_2022.json",
@@ -730,11 +550,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍວິທະຍາສາດ ແລະ ເຕັກໂນໂລຊີ",
       "year": 2022,
       "document_number": "105/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 67,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "securities_law_2020.json",
@@ -742,11 +559,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຫຼັກຊັບ",
       "year": 2020,
       "document_number": "019/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 139,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "sme_promotion_law_2022.json",
@@ -754,11 +568,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການສົ່ງເສີມຈຸນລະວິສາຫະກິດ, ວິສາຫະກິດຂະໜາດນ້ອຍ ແລະ ກາງ",
       "year": 2022,
       "document_number": "106/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 79,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "standards_law_2014.json",
@@ -766,11 +577,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍມາດຕະຖານ",
       "year": 2014,
       "document_number": "181/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "business",
       "total_chunks": 142,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "state_budget_law_2015.json",
@@ -778,11 +586,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍງົບປະມານແຫ່ງລັດ",
       "year": 2015,
       "document_number": "024/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "finance",
       "total_chunks": 113,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "state_property_law_2022.json",
@@ -790,11 +595,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍຊັບສິນຂອງລັດ",
       "year": 2022,
       "document_number": "107/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "government",
       "total_chunks": 72,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "tax_admin_law_2019.json",
@@ -802,11 +604,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຄຸ້ມຄອງສ່ວຍສາອາກອນ",
       "year": 2019,
       "document_number": "257/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "tax",
       "total_chunks": 61,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "technology_transfer_law_2017.json",
@@ -814,11 +613,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການຖ່າຍທອດເຕັກໂນໂລຊີ",
       "year": 2017,
       "document_number": "314/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 63,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "telecommunications_law_2021.json",
@@ -826,11 +622,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການໂທລະຄົມມະນາຄົມ",
       "year": 2021,
       "document_number": "236/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "technology",
       "total_chunks": 64,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "trade_remedy_law_2017.json",
@@ -838,11 +631,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການປົກປ້ອງຜູ້ຜະລິດທີ່ໄດ້ຮັບຜົນກະທົບຈາກການນຳເຂົ້າສິນຄ້າ",
       "year": 2017,
       "document_number": "287/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "trade",
       "total_chunks": 61,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "vat_law_2024.json",
@@ -850,11 +640,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍອາກອນມູນຄ່າເພີ່ມ",
       "year": 2024,
       "document_number": "60/ສພຊ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "tax",
       "total_chunks": 80,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "water_resources_law_2017.json",
@@ -862,11 +649,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍນ້ຳ ແລະ ຊັບພະຍາກອນນ້ຳ",
       "year": 2017,
       "document_number": "115/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 109,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "water_supply_law_2009.json",
@@ -874,11 +658,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍນ້ຳປະປາ",
       "year": 2009,
       "document_number": "076/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 57,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "waterway_law_2022.json",
@@ -886,11 +667,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍການທາງນ້ຳ",
       "year": 2022,
       "document_number": "030/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "transport",
       "total_chunks": 150,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     },
     {
       "filename": "wildlife_law_2023.json",
@@ -898,11 +676,8 @@
       "law_name_lao": "ກົດໝາຍວ່າດ້ວຍສັດປ່າ",
       "year": 2023,
       "document_number": "090/ປປທ",
-      "law_type": "ກົດໝາຍ",
-      "status": "active",
-      "category": "environment",
       "total_chunks": 86,
-      "last_updated": "2026-03-30"
+      "last_updated": "2026-03-31"
     }
   ]
 }
