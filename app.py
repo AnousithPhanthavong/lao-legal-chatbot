@@ -73,6 +73,12 @@ SITUATION_KEYWORDS = {
 
 DEFINITIONAL = ['ແມ່ນຫຍັງ', 'ຄືແນວໃດ', 'ໝາຍຄວາມວ່າ', 'ຈຸດປະສົງ', 'ຄຳນິຍາມ', 'ຂອບເຂດ', 'ນິຍາມ', 'ອະທິບາຍ']
 
+_LAO_NORM_MAP = {
+    'ຫມ': 'ໝ',
+    'ຫນ': 'ໜ',
+    'ຫລ': 'ຫຼ',
+}
+
 def normalize_lao(text):
     """Normalize Lao text to canonical spelling."""
     if not text:
