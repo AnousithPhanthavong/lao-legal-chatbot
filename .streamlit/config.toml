@@ -1,9 +1,11 @@
-[theme]
-primaryColor="#1a73e8"
-backgroundColor="#0e1117"
-secondaryBackgroundColor="#1e2530"
-textColor="#e8eaed"
-font="sans serif"
-
 [server]
-maxUploadSize=5
+headless = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = false
+
+[theme]
+primaryColor = "#C41E3A"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
