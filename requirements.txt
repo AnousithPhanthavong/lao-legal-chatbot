@@ -1,6 +1,5 @@
 streamlit==1.40.1
-chromadb==0.5.23
+chromadb==1.5.9
 google-genai==1.2.0
 numpy==1.26.4
 pydantic==2.9.2
-protobuf==4.25.5
