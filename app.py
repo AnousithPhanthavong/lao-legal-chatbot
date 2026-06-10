@@ -66,6 +66,16 @@ def _load_keys() -> list[str]:
 # ------------------------------------------------------------------ #
 # Cached resources (built once per server session)
 # ------------------------------------------------------------------ #
+def _decompress_db_if_needed():
+    """If chroma.sqlite3 is missing but a .gz exists, decompress it once."""
+    import gzip, shutil
+    sqlite = os.path.join(CHROMA_PATH, "chroma.sqlite3")
+    gz = sqlite + ".gz"
+    if not os.path.exists(sqlite) and os.path.exists(gz):
+        with gzip.open(gz, "rb") as f_in, open(sqlite, "wb") as f_out:
+            shutil.copyfileobj(f_in, f_out)
+
+
 @st.cache_resource(show_spinner="ກຳລັງເຊື່ອມຕໍ່ ChromaDB...")
 def _load_collections():
     import chromadb
@@ -73,6 +83,7 @@ def _load_collections():
         st.error(f"ChromaDB not found at {CHROMA_PATH}. "
                  "Make sure chroma_data/ is in the repo.")
         st.stop()
+    _decompress_db_if_needed()
     client = chromadb.PersistentClient(path=CHROMA_PATH)
     names  = [c.name for c in client.list_collections()]
     for needed in (REGS_COLLECTION, LAWS_COLLECTION):
