@@ -90,17 +90,41 @@ def load_system():
     base = os.environ.get('LAO_LEGAL_BASE',
         os.path.join(os.path.dirname(__file__), 'data'))
 
+    try:
+        _seen = list(st.secrets.keys())
+        st.warning(f"DEBUG: secrets seen = {_seen}")
+    except Exception as e:
+        st.warning(f"DEBUG: secrets error = {e}")
     api_keys = []
-    for i in range(1, 10):
+    try:
+        st.warning("DEBUG — secrets Streamlit can see: " + str(list(st.secrets.keys())))
+    except Exception as _e:
+        st.warning("DEBUG — cannot read secrets at all: " + str(_e))
+    try:
+        st.warning("DEBUG — secrets Streamlit can see: " + str(list(st.secrets.keys())))
+    except Exception as _e:
+        st.warning("DEBUG — cannot read secrets at all: " + str(_e))
+    # Format 1: GEMINI_KEYS (one comma-separated string)
+    try:
+        bulk = st.secrets.get('GEMINI_KEYS', '') or os.environ.get('GEMINI_KEYS', '')
+        if bulk:
+            api_keys.extend([k.strip() for k in bulk.split(',') if k.strip()])
+    except: pass
+    # Format 2: numbered GEMINI_KEY_1 .. GEMINI_KEY_20
+    if not api_keys:
+        for i in range(1, 21):
+            try:
+                key = st.secrets.get(f'GEMINI_KEY_{i}', '')
+                if key: api_keys.append(key.strip())
+            except: break
+    # Format 3: single GEMINI_API_KEY
+    if not api_keys:
         try:
-            key = st.secrets.get(f'GEMINI_KEY_{i}', '')
-            if key: api_keys.append(key)
-        except: break
+            single = os.environ.get('GEMINI_API_KEY', '') or st.secrets.get('GEMINI_API_KEY', '')
+            if single: api_keys.append(single.strip())
+        except: pass
     if not api_keys:
-        single = os.environ.get('GEMINI_API_KEY', st.secrets.get('GEMINI_API_KEY', ''))
-        if single: api_keys.append(single)
-    if not api_keys:
-        st.error("❌ No API keys."); st.stop()
+        st.error("❌ No API keys found. Add GEMINI_KEYS to secrets."); st.stop()
 
     gclient = genai.Client(api_key=random.choice(api_keys))
 
