@@ -130,10 +130,17 @@ def ask(question: str) -> AskResult:
                 strong = search_results[:1]
             for r in strong[:3]:
                 m = r["chunk"]["metadata"]
+                # include a preview of the actual article text so the UI can
+                # show it when the user clicks the reference (Fix 5)
+                content = r["chunk"].get("content", "") or ""
+                preview = content.strip().replace("\n", " ")
+                if len(preview) > 300:
+                    preview = preview[:300].rstrip() + "..."
                 citations.append({
                     "law": m.get("law_name_lao", ""),
                     "article": m.get("article", ""),
                     "title": m.get("article_title", ""),
+                    "preview": preview,
                 })
         steps.append("ກວດສອບການອ້າງອີງ ແລະ ສຳເລັດ")
 

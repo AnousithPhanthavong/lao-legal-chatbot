@@ -1,14 +1,16 @@
 """
-app.py — Lao Legal RAG UI (clean, styled, no duplication)
-=========================================================
+app.py — Lao Legal RAG UI
+=========================
 Edit ONLY this file. Backend is one call: ask(question) -> result.
 result.answer / .citations / .confidence / .is_general / .error
+Citations include .preview (article text) for clickable references.
 """
 import re
 import streamlit as st
 from backend import ask, get_system_info
 
-st.set_page_config(page_title="ຜູ້ຊ່ວຍກົດໝາຍລາວ", page_icon="⚖️", layout="centered")
+st.set_page_config(page_title="ຜູ້ຊ່ວຍກົດໝາຍລາວ", page_icon="⚖️", layout="centered",
+                   initial_sidebar_state="expanded")
 
 st.markdown("""
 <style>
@@ -16,8 +18,8 @@ st.markdown("""
 :root{--ink:#1a1f36;--paper:#faf8f3;--surface:#fff;--accent:#8b1e3f;--accent2:#1a5e63;--muted:#6b7280;--line:#e8e4da;}
 .stApp{background:var(--paper);}
 *{font-family:'Noto Sans Lao',sans-serif;}
-.block-container{max-width:740px;padding-top:1.2rem;}body, .stApp, p, span, div, li{color:#1a1f36;}
 body, .stApp, p, span, div, li{color:#1a1f36;}
+.block-container{max-width:740px;padding-top:1.2rem;}
 .app-head{text-align:center;padding:.3rem 0 .1rem;}
 .app-head .mark{font-size:1.8rem;}
 .app-head h1{font-family:'Noto Serif Lao',serif;font-size:1.55rem;font-weight:700;color:var(--ink);margin:.1rem 0;}
@@ -30,38 +32,35 @@ body, .stApp, p, span, div, li{color:#1a1f36;}
 .stChatMessage, .stChatMessage p, .stMarkdown, .stMarkdown p{color:#1a1f36 !important;}
 .ans-head{font-family:'Noto Serif Lao',serif;font-weight:700;font-size:.95rem;color:var(--accent2);margin:.9rem 0 .35rem;display:flex;align-items:center;gap:.4rem;}
 .ans-head.warn{color:var(--accent);}
-.cite{display:flex;gap:.7rem;padding:.5rem .65rem;border:1px solid var(--line);border-radius:9px;margin-bottom:.4rem;background:var(--surface);}
-.cite .art{font-family:'Noto Serif Lao',serif;font-weight:700;color:var(--accent);font-size:.78rem;white-space:nowrap;border-right:2px solid var(--line);padding-right:.7rem;display:flex;align-items:center;}
-.cite .body .law{font-weight:600;color:var(--ink);font-size:.82rem;}
-.cite .body .title{color:var(--muted);font-size:.75rem;}
+.cite-law{font-weight:600;color:var(--ink);font-size:.84rem;}
+.cite-art{font-family:'Noto Serif Lao',serif;font-weight:700;color:var(--accent);font-size:.8rem;}
+.cite-preview{color:#374151 !important;font-size:.82rem;line-height:1.6;background:var(--paper);border-left:3px solid var(--accent2);padding:.5rem .7rem;border-radius:0 6px 6px 0;margin-top:.3rem;}
 .conf{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;padding:.25rem .6rem;border-radius:8px;margin-top:.5rem;}
 .conf .dot{width:7px;height:7px;border-radius:50%;}
 .conf.hi{background:rgba(26,94,99,.1);color:var(--accent2);} .conf.hi .dot{background:var(--accent2);}
 .conf.med{background:rgba(184,134,11,.12);color:#b8860b;} .conf.med .dot{background:#b8860b;}
 .conf.lo{background:rgba(154,59,59,.1);color:#9a3b3b;} .conf.lo .dot{background:#9a3b3b;}
-.stButton button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;font-size:.8rem;}
-.stButton button:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ---- SIDEBAR (FIX 1: clear light text on dark bg) ---- */
+section[data-testid="stSidebar"]{background:#1a1f36;}
+section[data-testid="stSidebar"] *{color:#f0ede6 !important;}
+section[data-testid="stSidebar"] .side-title{font-family:'Noto Serif Lao',serif;font-weight:700;font-size:1.1rem;color:#fff !important;}
+section[data-testid="stSidebar"] .side-caption{color:#a8b0c0 !important;font-size:.74rem;}
+section[data-testid="stSidebar"] .stButton button{background:rgba(255,255,255,.08);color:#f0ede6 !important;border:1px solid rgba(255,255,255,.15);border-radius:9px;font-size:.82rem;text-align:left;}
+section[data-testid="stSidebar"] .stButton button:hover{background:rgba(255,255,255,.15);border-color:var(--accent);}
+section[data-testid="stSidebar"] hr{border-color:rgba(255,255,255,.12);}
+.hist-label{color:#a8b0c0 !important;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;margin:.8rem 0 .3rem;}
 </style>
 """, unsafe_allow_html=True)
 
 
 def render_answer(text: str):
-    """Render the answer with its sections styled as headed blocks.
-    The backend answer contains 📋/📎/⚠️/💡 markers. We split on them and
-    render each as a clean section. We STRIP the in-text 📎 ຫຼັກຖານ block's
-    raw citation lines because the structured citation cards show those —
-    this removes the duplication.
-    """
     if not text:
         st.markdown("—"); return
-
-    # split into (marker, body) sections
     parts = re.split(r'(📋 ຄຳຕອບ:|📎 ຫຼັກຖານ:|⚠️ ຂໍ້ຄວນລະວັງ:|💡)', text)
-    # parts[0] is any preamble before the first marker
     preamble = parts[0].strip()
     if preamble:
         st.markdown(f'<div class="ans-section">{preamble}</div>', unsafe_allow_html=True)
-
     i = 1
     while i < len(parts):
         marker = parts[i].strip()
@@ -71,9 +70,7 @@ def render_answer(text: str):
             st.markdown('<div class="ans-head">📋 ຄຳຕອບ</div>', unsafe_allow_html=True)
             st.markdown(f'<div class="ans-section">{body}</div>', unsafe_allow_html=True)
         elif marker.startswith("📎"):
-            # We SKIP rendering the raw evidence prose here — the citation cards
-            # below the answer present the sources cleanly without duplication.
-            continue
+            continue  # sources shown as clickable cards below (no duplication)
         elif marker.startswith("⚠️"):
             st.markdown('<div class="ans-head warn">⚠️ ຂໍ້ຄວນລະວັງ</div>', unsafe_allow_html=True)
             st.markdown(f'<div class="ans-section">{body}</div>', unsafe_allow_html=True)
@@ -81,24 +78,30 @@ def render_answer(text: str):
             st.caption(f"💡 {body}")
 
 
-def render_citations(citations):
+def render_citations(citations, key_prefix=""):
+    """FIX 5: clickable references — click to expand the actual article text."""
     if not citations:
         return
-    # dedupe by (law, article)
     seen = set(); uniq = []
     for c in citations:
-        key = (c.get("law",""), str(c.get("article","")))
-        if key not in seen and c.get("law"):
-            seen.add(key); uniq.append(c)
+        k = (c.get("law",""), str(c.get("article","")))
+        if k not in seen and c.get("law"):
+            seen.add(k); uniq.append(c)
     if not uniq:
         return
     st.markdown('<div class="ans-head">📎 ແຫຼ່ງອ້າງອີງ</div>', unsafe_allow_html=True)
-    for c in uniq:
-        st.markdown(
-            f'<div class="cite"><div class="art">ມາດຕາ {c["article"]}</div>'
-            f'<div class="body"><div class="law">{c["law"]}</div>'
-            + (f'<div class="title">{c["title"]}</div>' if c.get("title") else "")
-            + '</div></div>', unsafe_allow_html=True)
+    for idx, c in enumerate(uniq):
+        title = c.get("title", "")
+        header = f"ມາດຕາ {c['article']} · {c['law']}"
+        if title:
+            header += f" — {title}"
+        # clickable expander showing the actual law/reg content
+        with st.expander(f"📎 {header}"):
+            preview = c.get("preview", "")
+            if preview:
+                st.markdown(f'<div class="cite-preview">{preview}</div>', unsafe_allow_html=True)
+            else:
+                st.caption("(ບໍ່ມີຕົວຢ່າງເນື້ອໃນ)")
 
 
 def render_conf(confidence, is_general):
@@ -113,6 +116,56 @@ def render_conf(confidence, is_general):
                     unsafe_allow_html=True)
 
 
+# ---------- state ----------
+if "conversations" not in st.session_state:
+    st.session_state.conversations = {}   # id -> {title, messages}
+if "current_id" not in st.session_state:
+    st.session_state.current_id = None
+if "sidebar_hidden" not in st.session_state:
+    st.session_state.sidebar_hidden = False
+
+def _new_conversation():
+    import time
+    cid = str(int(time.time()*1000))
+    st.session_state.conversations[cid] = {"title": "ສົນທະນາໃໝ່", "messages": []}
+    st.session_state.current_id = cid
+    return cid
+
+def _current():
+    if st.session_state.current_id is None or st.session_state.current_id not in st.session_state.conversations:
+        _new_conversation()
+    return st.session_state.conversations[st.session_state.current_id]
+
+
+# ---------- sidebar ----------
+with st.sidebar:
+    st.markdown('<div class="side-title">⚖️ ກົດໝາຍລາວ</div>', unsafe_allow_html=True)
+    if st.button("＋ ສົນທະນາໃໝ່", use_container_width=True, key="newchat"):
+        _new_conversation(); st.rerun()
+
+    # FIX 3: show/hide history toggle
+    st.markdown('<div class="hist-label">ປະຫວັດການສົນທະນາ</div>', unsafe_allow_html=True)
+    show_history = st.toggle("ສະແດງປະຫວັດ", value=True, key="show_hist")
+
+    # FIX 2: chat history list (session-only) — click to switch conversation
+    if show_history:
+        if not st.session_state.conversations:
+            st.caption("ຍັງບໍ່ມີການສົນທະນາ")
+        else:
+            for cid, conv in reversed(list(st.session_state.conversations.items())):
+                label = conv["title"][:28] + ("…" if len(conv["title"]) > 28 else "")
+                marker = "▸ " if cid == st.session_state.current_id else ""
+                if st.button(f"{marker}{label}", key=f"conv_{cid}", use_container_width=True):
+                    st.session_state.current_id = cid; st.rerun()
+
+    st.divider()
+    info = get_system_info()
+    st.markdown(f'<div class="side-caption">📚 {info.get("total_laws","?")} ກົດໝາຍ · '
+                f'{info.get("total_chunks","?")} ມາດຕາ</div>', unsafe_allow_html=True)
+    if not info.get("ready"):
+        st.error("ລະບົບຍັງບໍ່ພ້ອມ — ກວດ API keys")
+
+
 # ---------- header ----------
 st.markdown('<div class="app-head"><div class="mark">⚖️</div>'
             '<h1>ຜູ້ຊ່ວຍຄົ້ນຄວ້າກົດໝາຍລາວ</h1>'
@@ -121,22 +174,10 @@ st.markdown('<div class="app-head"><div class="mark">⚖️</div>'
 st.markdown('<div class="disc">⚠️ ນີ້ແມ່ນ<b>ເຄື່ອງມືຄົ້ນຄວ້າ</b> — ບໍ່ແມ່ນຄຳປຶກສາທາງກົດໝາຍ — '
             'ກະລຸນາປຶກສາທະນາຍຄວາມ</div>', unsafe_allow_html=True)
 
-# ---------- sidebar ----------
-with st.sidebar:
-    st.markdown("### ⚖️ ກົດໝາຍລາວ")
-    if st.button("＋ ສົນທະນາໃໝ່", use_container_width=True):
-        st.session_state.messages = []; st.rerun()
-    info = get_system_info()
-    st.divider()
-    st.caption(f"📚 {info.get('total_laws','?')} ກົດໝາຍ · {info.get('total_chunks','?')} ມາດຕາ")
-    if not info.get("ready"):
-        st.error("ລະບົບຍັງບໍ່ພ້ອມ — ກວດ API keys")
+conv = _current()
 
-# ---------- history ----------
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-if not st.session_state.messages:
+# ---------- example questions (empty state) ----------
+if not conv["messages"]:
     st.markdown('<div style="font-size:.8rem;font-weight:600;margin:1rem 0 .5rem;color:var(--muted);">'
                 '💡 ຕົວຢ່າງຄຳຖາມ</div>', unsafe_allow_html=True)
     cols = st.columns(2)
@@ -146,11 +187,12 @@ if not st.session_state.messages:
         if cols[i % 2].button(ex, key=f"ex{i}", use_container_width=True):
             st.session_state.pending = ex
 
-for msg in st.session_state.messages:
+# ---------- history ----------
+for mi, msg in enumerate(conv["messages"]):
     with st.chat_message(msg["role"], avatar="⚖️" if msg["role"]=="assistant" else "🧑"):
         if msg["role"] == "assistant":
             render_answer(msg["content"])
-            render_citations(msg.get("citations", []))
+            render_citations(msg.get("citations", []), key_prefix=f"h{mi}")
             render_conf(msg.get("confidence","NONE"), msg.get("is_general", False))
         else:
             st.markdown(msg["content"])
@@ -160,17 +202,20 @@ pending = st.session_state.pop("pending", None)
 question = st.chat_input("ພິມຄຳຖາມກ່ຽວກັບກົດໝາຍລາວ...") or pending
 
 if question:
-    st.session_state.messages.append({"role":"user","content":question})
+    conv["messages"].append({"role":"user","content":question})
+    # set the conversation title from the first question (FIX 2)
+    if conv["title"] == "ສົນທະນາໃໝ່":
+        conv["title"] = question[:40]
     with st.chat_message("user", avatar="🧑"):
         st.markdown(question)
     with st.chat_message("assistant", avatar="⚖️"):
         with st.spinner("🔍 ກຳລັງຄົ້ນຫາ ແລະ ວິເຄາະ..."):
             result = ask(question)
         render_answer(result.answer)
-        render_citations(result.citations)
+        render_citations(result.citations, key_prefix="live")
         render_conf(result.confidence, result.is_general)
         st.caption("⚠️ ກວດສອບກັບແຫຼ່ງທາງການ ຫຼື ທະນາຍຄວາມສະເໝີ")
-    st.session_state.messages.append({
+    conv["messages"].append({
         "role":"assistant","content":result.answer,
         "citations":result.citations,"confidence":result.confidence,
         "is_general":result.is_general,
