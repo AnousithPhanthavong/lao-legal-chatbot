@@ -107,7 +107,28 @@ def ask(question: str) -> AskResult:
 
         citations = []
         if not is_general and search_results:
-            for r in search_results[:3]:
+            # Filter out weak/unrelated sources. Keep exact + definitional matches
+            # (reliable by construction) and semantic/keyword hits above a score
+            # threshold. This drops noise like an unrelated court-registry article
+            # showing up next to a VAT question.
+            SEM_THRESHOLD = 0.45   # cosine similarity floor for semantic hits
+            strong = []
+            for r in search_results:
+                src_type = r.get("source", "")
+                score = r.get("score", 0)
+                if src_type in ("exact", "definitional"):
+                    strong.append(r)
+                elif src_type == "semantic" and isinstance(score, (int, float)) and score >= SEM_THRESHOLD:
+                    strong.append(r)
+                elif src_type == "keyword" and isinstance(score, (int, float)) and score > 0:
+                    # keyword scores aren't 0-1; keep only if it's also a top result
+                    if r in search_results[:2]:
+                        strong.append(r)
+            # if filtering removed everything, fall back to the top result so the
+            # user still sees the best available source
+            if not strong and search_results:
+                strong = search_results[:1]
+            for r in strong[:3]:
                 m = r["chunk"]["metadata"]
                 citations.append({
                     "law": m.get("law_name_lao", ""),
