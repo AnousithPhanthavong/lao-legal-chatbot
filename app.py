@@ -16,7 +16,7 @@ st.markdown("""
 :root{--ink:#1a1f36;--paper:#faf8f3;--surface:#fff;--accent:#8b1e3f;--accent2:#1a5e63;--muted:#6b7280;--line:#e8e4da;}
 .stApp{background:var(--paper);}
 *{font-family:'Noto Sans Lao',sans-serif;}
-.block-container{max-width:740px;padding-top:1.2rem;}
+.block-container{max-width:740px;padding-top:1.2rem;}body, .stApp, p, span, div, li{color:#1a1f36;}
 .app-head{text-align:center;padding:.3rem 0 .1rem;}
 .app-head .mark{font-size:1.8rem;}
 .app-head h1{font-family:'Noto Serif Lao',serif;font-size:1.55rem;font-weight:700;color:var(--ink);margin:.1rem 0;}
@@ -24,7 +24,7 @@ st.markdown("""
 .app-head .rule{width:44px;height:3px;background:var(--accent);margin:.5rem auto 0;border-radius:2px;}
 .disc{text-align:center;font-size:.72rem;color:var(--muted);margin:.9rem auto;max-width:560px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:.5rem 0;}
 .disc b{color:var(--accent);}
-.ans-section{margin:.6rem 0;line-height:1.75;}
+.ans-section{margin:.6rem 0;line-height:1.85;color:#1a1f36 !important;font-size:.95rem;}.ans-section *{color:#1a1f36 !important;}.stChatMessage, .stChatMessage p, .stMarkdown, .stMarkdown p{color:#1a1f36 !important;}
 .ans-head{font-family:'Noto Serif Lao',serif;font-weight:700;font-size:.95rem;color:var(--accent2);margin:.9rem 0 .35rem;display:flex;align-items:center;gap:.4rem;}
 .ans-head.warn{color:var(--accent);}
 .cite{display:flex;gap:.7rem;padding:.5rem .65rem;border:1px solid var(--line);border-radius:9px;margin-bottom:.4rem;background:var(--surface);}
