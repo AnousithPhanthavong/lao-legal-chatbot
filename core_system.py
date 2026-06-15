@@ -323,6 +323,23 @@ def _clean_meta(meta):
     }
 
 
+def _normalize_lao(text):
+    """Normalize Lao text for fuzzy matching: drop tone marks and common
+    spelling-variant marks so 'ທີດິນ' matches 'ທີ່ດິນ', 'ພາສິ' matches 'ພາສີ'.
+    These combining marks are frequently omitted/varied in user queries."""
+    # Lao tone marks + some vowel-length marks that users drop or swap
+    drop = {
+        '\u0ec8',  # mai ek  ່
+        '\u0ec9',  # mai tho ້
+        '\u0eca',  # mai ti  ໊
+        '\u0ecb',  # mai catawa ໋
+    }
+    out = ''.join(c for c in text if c not in drop)
+    # normalize ສ/ສ and common i/ii swaps that break matching
+    out = out.replace('\u0eb5', '\u0eb4')  # ີ (sara ii) -> ິ (sara i)
+    return out
+
+
 DEFINITIONAL_PATTERNS = ['ແມ່ນຫຍັງ', 'ຄືແນວໃດ', 'ໝາຍຄວາມວ່າ',
                           'ຈຸດປະສົງ', 'ຄຳນິຍາມ', 'ຂອບເຂດ', 'ອະທິບາຍ']
 
@@ -331,8 +348,12 @@ def search(query, sys):
     article_num = int(article_match.group(1)) if article_match else None
 
     law_filter = None
+    # Match law keywords with tone-mark normalization so spelling variants
+    # (e.g. query 'ທີດິນ' vs law name 'ທີ່ດິນ') still match. Longest keyword
+    # wins, so specific laws ('ອາກອນທີ່ດິນ') beat generic terms ('ອາກອນ').
+    _nq = _normalize_lao(query)
     for kw in sorted(sys['law_keywords'].keys(), key=len, reverse=True):
-        if kw in query:
+        if kw in query or _normalize_lao(kw) in _nq:
             law_filter = sys['law_keywords'][kw]
             break
 
