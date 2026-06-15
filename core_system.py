@@ -18,6 +18,56 @@ EMBED_MODEL = "gemini-embedding-001"
 GEN_MODEL = "gemini-2.5-flash"
 TARGET_DIM = 768
 
+import time as _time
+import itertools as _itertools
+
+class RotatingGeminiClient:
+    """Wraps multiple google.genai clients (one per key) and retries transient
+    errors (503/429/500) by backing off and rotating to the next key. This
+    spreads load across all keys and survives temporary Gemini outages."""
+    def __init__(self, api_keys, genai_module):
+        from google import genai
+        self._clients = [genai.Client(api_key=k) for k in api_keys]
+        self._cycle = _itertools.cycle(range(len(self._clients)))
+        self._n = len(self._clients)
+
+    @property
+    def models(self):
+        # return a proxy that routes .embed_content / .generate_content
+        return _ModelProxy(self)
+
+    def _call(self, method_name, **kwargs):
+        transient = ("503", "429", "500", "502", "504", "UNAVAILABLE",
+                     "RESOURCE_EXHAUSTED", "overload", "high demand", "quota",
+                     "rate limit")
+        last_err = None
+        # try up to 2 full passes over all keys
+        max_attempts = max(self._n * 2, 6)
+        for attempt in range(max_attempts):
+            idx = next(self._cycle)
+            client = self._clients[idx]
+            try:
+                method = getattr(client.models, method_name)
+                return method(**kwargs)
+            except Exception as e:
+                last_err = e
+                msg = str(e)
+                is_transient = any(t in msg for t in transient)
+                if not is_transient:
+                    raise  # a real error (bad request etc.) — don't retry
+                # transient: brief backoff, then next key
+                _time.sleep(min(0.5 * (attempt + 1), 3.0))
+                continue
+        raise last_err if last_err else RuntimeError("all retries failed")
+
+
+class _ModelProxy:
+    def __init__(self, rc): self._rc = rc
+    def embed_content(self, **kwargs):
+        return self._rc._call("embed_content", **kwargs)
+    def generate_content(self, **kwargs):
+        return self._rc._call("generate_content", **kwargs)
+
 LEGAL_TERMS = [
     'ກົດໝາຍ', 'ມາດຕາ', 'ວິສາຫະກິດ', 'ການລົງທຶນ', 'ປະກັນໄພ',
     'ບັນຊີ', 'ສັນຍາ', 'ນິຕິບຸກຄົນ', 'ຜູ້ລົງທຶນ', 'ສິດ',
@@ -98,7 +148,9 @@ def load_system():
     if not api_keys:
         raise RuntimeError("No API keys found. Set GEMINI_KEYS or GEMINI_KEY_1..n.")
 
-    gclient = genai.Client(api_key=random.choice(api_keys))
+    # Rotating client across ALL keys, with 503/429 retry (spreads load,
+    # survives transient Gemini outages).
+    gclient = RotatingGeminiClient(api_keys, genai)
 
     # ---- Load FULL content (both collections) + embeddings from the new cache ----
     with gzip.open(f'{base}/db/content_full.json.gz', 'rt', encoding='utf-8') as cf:
