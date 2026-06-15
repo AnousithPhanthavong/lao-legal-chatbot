@@ -130,17 +130,24 @@ def ask(question: str) -> AskResult:
                 strong = search_results[:1]
             for r in strong[:3]:
                 m = r["chunk"]["metadata"]
-                # include a preview of the actual article text so the UI can
-                # show it when the user clicks the reference (Fix 5)
                 content = r["chunk"].get("content", "") or ""
                 preview = content.strip().replace("\n", " ")
                 if len(preview) > 300:
                     preview = preview[:300].rstrip() + "..."
+                # laws use law_name_lao+article+article_title; regs may use
+                # citation_string / parent_law_name_lao and have article '0'.
+                is_reg = str(m.get("is_regulation", "")).lower() in ("true", "1")
+                law_name = m.get("law_name_lao", "") or m.get("parent_law_name_lao", "") or m.get("citation_string", "")[:50]
+                article = m.get("article", "")
+                if str(article) in ("0", ""):
+                    article = ""  # page-level reg chunk: no article number
+                title = m.get("article_title", "")
                 citations.append({
-                    "law": m.get("law_name_lao", ""),
-                    "article": m.get("article", ""),
-                    "title": m.get("article_title", ""),
+                    "law": law_name,
+                    "article": article,
+                    "title": title,
                     "preview": preview,
+                    "is_reg": is_reg,
                 })
         steps.append("ກວດສອບການອ້າງອີງ ແລະ ສຳເລັດ")
 

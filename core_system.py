@@ -64,38 +64,59 @@ def load_system():
         os.path.join(os.path.dirname(__file__), 'data'))
 
     api_keys = []
-    # Format 1: GEMINI_KEYS (one comma-separated string)
-    try:
-        bulk = st.secrets.get('GEMINI_KEYS', '') or os.environ.get('GEMINI_KEYS', '')
-        if bulk:
-            api_keys.extend([k.strip() for k in bulk.split(',') if k.strip()])
-    except: pass
-    # Format 2: numbered GEMINI_KEY_1 .. GEMINI_KEY_20
+    # 1. Check os.environ FIRST (works in Colab AND Streamlit; never throws).
+    bulk_env = os.environ.get('GEMINI_KEYS', '')
+    if bulk_env:
+        api_keys.extend([k.strip() for k in bulk_env.split(',') if k.strip()])
+    # 2. Then Streamlit secrets (each access in its OWN try so one failure
+    #    doesn't abort the rest). st.secrets raises outside a Streamlit session.
+    if not api_keys:
+        try:
+            bulk = st.secrets.get('GEMINI_KEYS', '')
+            if bulk:
+                api_keys.extend([k.strip() for k in bulk.split(',') if k.strip()])
+        except Exception:
+            pass
     if not api_keys:
         for i in range(1, 21):
             try:
                 key = st.secrets.get(f'GEMINI_KEY_{i}', '')
                 if key: api_keys.append(key.strip())
-            except: break
-    # Format 3: single GEMINI_API_KEY
+            except Exception:
+                break
+    # 3. Single-key fallbacks
+    if not api_keys:
+        single = os.environ.get('GEMINI_API_KEY', '')
+        if single:
+            api_keys.append(single.strip())
     if not api_keys:
         try:
-            single = os.environ.get('GEMINI_API_KEY', '') or st.secrets.get('GEMINI_API_KEY', '')
+            single = st.secrets.get('GEMINI_API_KEY', '')
             if single: api_keys.append(single.strip())
-        except: pass
+        except Exception:
+            pass
     if not api_keys:
-        raise RuntimeError("No API keys found. Add GEMINI_KEYS to Streamlit secrets.")
+        raise RuntimeError("No API keys found. Set GEMINI_KEYS or GEMINI_KEY_1..n.")
 
     gclient = genai.Client(api_key=random.choice(api_keys))
 
-    with open(f'{base}/db/bm25/bm25_index.pkl', 'rb') as bf:
-        bm25_data = pickle.load(bf)
+    # ---- Load FULL content (both collections) + embeddings from the new cache ----
+    with gzip.open(f'{base}/db/content_full.json.gz', 'rt', encoding='utf-8') as cf:
+        content_full = json.load(cf)   # {collection_name: {id: {content, metadata}}}
+    with gzip.open(f'{base}/db/embeddings_cache_full.json.gz', 'rt', encoding='utf-8') as ef:
+        embed_data = json.load(ef)     # {id: vector}
 
+    # Flatten all chunks (both collections) into one list for BM25 + lookup
     all_chunks = []
-    for law_file in sorted(Path(f'{base}/laws/individual').glob('*.json')):
-        with open(law_file, 'r', encoding='utf-8') as lf:
-            all_chunks.extend(json.load(lf)['articles'])
+    chunks_by_id = {}
+    for coll_name, items in content_full.items():
+        for cid, rec in items.items():
+            chunk = {'id': cid, 'content': rec['content'],
+                     'metadata': rec['metadata'], 'collection': coll_name}
+            all_chunks.append(chunk)
+            chunks_by_id[cid] = chunk
 
+    # Build law keyword map (from law chunks only, which have law_name_en)
     law_keywords = {}
     for chunk in all_chunks:
         meta = chunk['metadata']
@@ -105,7 +126,6 @@ def load_system():
             law_keywords[lao_name] = en_name
             short = lao_name.replace('ກົດໝາຍວ່າດ້ວຍ', '').strip()
             if len(short) > 3: law_keywords[short] = en_name
-
     short_kw = {
         'ປະກັນໄພ': 'Insurance', 'ພາສີ': 'Customs', 'ອາກອນ': 'Tax',
         'ທະນາຄານ': 'Banking', 'ຫຼັກຊັບ': 'Securities',
@@ -113,6 +133,74 @@ def load_system():
         'ສິ່ງແວດລ້ອມ': 'Environment', 'ການລົງທຶນ': 'Investment',
         'ບັນຊີ': 'Accounting', 'ຂົນສົ່ງ': 'Transport',
     }
+    for kw, hint in short_kw.items():
+        if kw not in law_keywords:
+            for full_lao, en in law_keywords.items():
+                if hint.lower() in en.lower():
+                    law_keywords[kw] = en; break
+
+    # Load the PREBUILT BM25 index (fast startup; built by export_full_data.py)
+    with open(f'{base}/db/bm25/bm25_index_full.pkl', 'rb') as bf:
+        _bm25 = pickle.load(bf)
+    bm25_index = _bm25['index']
+    bm25_ids = _bm25['ids']
+
+    # Registry (for sidebar counts)
+    try:
+        with open(f'{base}/laws/registry.json', 'r', encoding='utf-8') as rf:
+            registry = json.load(rf)
+    except Exception:
+        registry = {'laws': [], 'total_laws': '?', 'total_chunks': len(all_chunks)}
+    registry['total_chunks'] = len(all_chunks)
+
+    # ---- Build BOTH ChromaDB collections from the cache ----
+    chroma_path = f'{base}/db/chroma_runtime'
+    os.makedirs(chroma_path, exist_ok=True)
+    chroma_client = chromadb.PersistentClient(path=chroma_path)
+
+    collections = {}
+    for coll_name, items in content_full.items():
+        try:
+            c = chroma_client.get_collection(coll_name)
+            if c.count() >= len(items) * 0.9:
+                collections[coll_name] = c
+                continue
+        except: pass
+        try: chroma_client.delete_collection(coll_name)
+        except: pass
+        c = chroma_client.create_collection(name=coll_name, metadata={"hnsw:space": "cosine"})
+        ids_list = [cid for cid in items.keys() if cid in embed_data]
+        for i in range(0, len(ids_list), 100):
+            bids = ids_list[i:i+100]
+            c.add(
+                ids=bids,
+                embeddings=[embed_data[cid] for cid in bids],
+                documents=[items[cid]['content'] for cid in bids],
+                metadatas=[_clean_meta(items[cid]['metadata']) for cid in bids],
+            )
+        collections[coll_name] = c
+
+    return {
+        'gclient': gclient, 'genai_types': genai_types,
+        'collections': collections,
+        'laws_collection': collections.get('lao_legal'),
+        'regs_collection': collections.get('lao_regulations_tax'),
+        'bm25_index': bm25_index, 'bm25_ids': bm25_ids,
+        'all_chunks': all_chunks, 'chunks_by_id': chunks_by_id,
+        'registry': registry, 'law_keywords': law_keywords,
+        'api_keys': api_keys,
+    }
+
+
+def _clean_meta(meta):
+    """Coerce metadata to Chroma-safe scalar types (str/int/float/bool)."""
+    out = {}
+    for k, v in meta.items():
+        if v is None: out[k] = ''
+        elif isinstance(v, (str, int, float, bool)): out[k] = v
+        else: out[k] = str(v)
+    return out
+
     for kw, hint in short_kw.items():
         if kw not in law_keywords:
             for full_lao, en in law_keywords.items():
@@ -199,35 +287,46 @@ def search(query, sys):
     results = []
     seen_ids = set()
 
+    # Exact article lookup (across ALL chunks, both collections)
     if article_num:
         for chunk in sys['all_chunks']:
             meta = chunk['metadata']
-            if meta['article'] == article_num:
-                if not law_filter or law_filter.lower() in meta['law_name_en'].lower():
+            try:
+                a = int(meta.get('article', 0) or 0)
+            except: a = 0
+            if a == article_num:
+                en = meta.get('law_name_en', '') or ''
+                if not law_filter or law_filter.lower() in en.lower():
                     if chunk['id'] not in seen_ids:
                         results.append({'chunk': chunk, 'score': 1.0, 'source': 'exact'})
                         seen_ids.add(chunk['id'])
 
+    # Semantic search across BOTH collections
     try:
         q_result = sys['gclient'].models.embed_content(
             model=EMBED_MODEL, contents=query,
             config=sys['genai_types'].EmbedContentConfig(
                 task_type="RETRIEVAL_QUERY", output_dimensionality=TARGET_DIM))
         q_vec = normalize_vector(q_result.embeddings[0].values)
-        where = {"law_name_en": law_filter} if law_filter else None
-        cr = sys['collection'].query(
-            query_embeddings=[q_vec], n_results=10, where=where,
-            include=["documents","metadatas","distances"])
-        for i in range(len(cr['ids'][0])):
-            cid = cr['ids'][0][i]
-            if cid not in seen_ids:
-                sim = 1 - cr['distances'][0][i]
-                chunk = sys['chunks_by_id'].get(cid)
-                if chunk:
-                    results.append({'chunk': chunk, 'score': sim, 'source': 'semantic'})
-                    seen_ids.add(cid)
+        for coll_name, coll in sys['collections'].items():
+            if coll is None: continue
+            cr = coll.query(query_embeddings=[q_vec], n_results=10,
+                            include=["documents", "metadatas", "distances"])
+            for i in range(len(cr['ids'][0])):
+                cid = cr['ids'][0][i]
+                meta = cr['metadatas'][0][i] or {}
+                # skip garbled/quarantined OCR chunks
+                if str(meta.get('quarantine', '')).lower() in ('true', '1'):
+                    continue
+                if cid not in seen_ids:
+                    sim = 1 - cr['distances'][0][i]
+                    chunk = sys['chunks_by_id'].get(cid)
+                    if chunk:
+                        results.append({'chunk': chunk, 'score': sim, 'source': 'semantic'})
+                        seen_ids.add(cid)
     except: pass
 
+    # BM25 keyword search (over all chunks)
     try:
         tokens = lao_tokenize(query)
         scores = sys['bm25_index'].get_scores(tokens)
@@ -237,22 +336,25 @@ def search(query, sys):
             if cid not in seen_ids and scores[idx] > 0:
                 chunk = sys['chunks_by_id'].get(cid)
                 if chunk:
+                    meta = chunk['metadata']
+                    if str(meta.get('quarantine', '')).lower() in ('true', '1'):
+                        continue
                     results.append({'chunk': chunk, 'score': scores[idx], 'source': 'keyword'})
                     seen_ids.add(cid)
     except: pass
 
+    # Definitional boost
     is_definitional = any(p in query for p in DEFINITIONAL_PATTERNS)
     if is_definitional and law_filter:
         for chunk in sys['all_chunks']:
             meta = chunk['metadata']
-            if (meta.get('article', 0) <= 5
-                and law_filter.lower() in meta.get('law_name_en', '').lower()
+            try: a = int(meta.get('article', 0) or 0)
+            except: a = 0
+            en = meta.get('law_name_en', '') or ''
+            if (a <= 5 and a > 0 and law_filter.lower() in en.lower()
                 and chunk['id'] not in seen_ids):
-                results.append({
-                    'chunk': chunk,
-                    'score': 0.9 - (meta['article'] * 0.02),
-                    'source': 'definitional'
-                })
+                results.append({'chunk': chunk, 'score': 0.9 - (a * 0.02),
+                                'source': 'definitional'})
                 seen_ids.add(chunk['id'])
 
     exact = [r for r in results if r['source'] in ('exact', 'definitional')]

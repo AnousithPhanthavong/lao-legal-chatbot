@@ -92,7 +92,11 @@ def render_citations(citations, key_prefix=""):
     st.markdown('<div class="ans-head">📎 ແຫຼ່ງອ້າງອີງ</div>', unsafe_allow_html=True)
     for idx, c in enumerate(uniq):
         title = c.get("title", "")
-        header = f"ມາດຕາ {c['article']} · {c['law']}"
+        art = c.get("article", "")
+        if art:
+            header = f"ມາດຕາ {art} · {c['law']}"
+        else:
+            header = f"{c['law']}"   # page-level regulation chunk, no article #
         if title:
             header += f" — {title}"
         # clickable expander showing the actual law/reg content
