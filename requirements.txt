@@ -4,3 +4,4 @@ chromadb
 rank-bm25
 laonlp
 numpy
+protobuf==4.25.5
