@@ -133,7 +133,7 @@ def load_system():
                 key = st.secrets.get(f'GEMINI_KEY_{i}', '')
                 if key: api_keys.append(key.strip())
             except Exception:
-                break
+                continue  # one missing key shouldn't stop checking the rest
     # 3. Single-key fallbacks
     if not api_keys:
         single = os.environ.get('GEMINI_API_KEY', '')
@@ -146,7 +146,7 @@ def load_system():
         except Exception:
             pass
     if not api_keys:
-        raise RuntimeError("No API keys found. Set GEMINI_KEYS or GEMINI_KEY_1..n.")
+        raise RuntimeError("No API keys found. On Streamlit Cloud: open Settings -> Secrets and add GEMINI_KEY_1 = \"your-key\" (and GEMINI_KEY_2, etc.), or GEMINI_KEYS = \"key1,key2,key3\".")
 
     # Rotating client across ALL keys, with 503/429 retry (spreads load,
     # survives transient Gemini outages).

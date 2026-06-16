@@ -50,6 +50,25 @@ section[data-testid="stSidebar"] .stButton button{background:rgba(255,255,255,.0
 section[data-testid="stSidebar"] .stButton button:hover{background:rgba(255,255,255,.15);border-color:var(--accent);}
 section[data-testid="stSidebar"] hr{border-color:rgba(255,255,255,.12);}
 .hist-label{color:#a8b0c0 !important;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;margin:.8rem 0 .3rem;}
+
+/* ---- MAIN-AREA buttons (example questions) — readable on parchment ---- */
+.block-container .stButton button{
+  background:#fff !important;
+  color:#1a1f36 !important;
+  border:1px solid var(--line) !important;
+  border-radius:10px !important;
+  font-size:.88rem !important;
+  font-weight:500 !important;
+  padding:.7rem 1rem !important;
+  text-align:left !important;
+  transition:all .15s ease;
+}
+.block-container .stButton button:hover{
+  border-color:var(--accent) !important;
+  background:var(--paper) !important;
+  color:var(--accent) !important;
+}
+.block-container .stButton button p{color:inherit !important;}
 </style>
 """, unsafe_allow_html=True)
 
