@@ -187,6 +187,9 @@ with st.sidebar:
                 f'{info.get("total_chunks","?")} ມາດຕາ</div>', unsafe_allow_html=True)
     if not info.get("ready"):
         st.error("ລະບົບຍັງບໍ່ພ້ອມ — ກວດ API keys")
+        # TEMP DIAGNOSTIC: show the real error so we can fix it
+        if info.get("error"):
+            st.caption(f"🔧 {info.get('error')}")
 
 
 # ---------- header ----------
